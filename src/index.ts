@@ -1,4 +1,4 @@
-import { McpServer } from "@modelcontextprotocol/server": "2.3.1";
+import { McpServer } from "@modelcontextprotocol/server";
 import { createMcpHandler } from "agents/mcp/server";
 
 function createServer() {
