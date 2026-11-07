@@ -29,7 +29,7 @@ function createServer() {
 const handler = createMcpHandler(createServer);
 
 export default {
-  fetch(request: Request, env: Env, ctx: ExecutionContext) {
+  fetch(request, env, ctx)  {
     return handler(request, env, ctx);
   }
 };
