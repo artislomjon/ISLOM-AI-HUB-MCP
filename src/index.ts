@@ -1,29 +1,35 @@
-import { McpAgent } from "agents/mcp";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/server";
+import { createMcpHandler } from "agents/mcp/server";
 
-export class MyMCP extends McpAgent {
-  server = new McpServer({
+function createServer() {
+  const server = new McpServer({
     name: "ISLOM AI HUB",
-    version: "1.0.0",
+    version: "1.0.0"
   });
 
-  async init() {
-    this.server.tool(
-      "islom_hub_status",
-      "Проверить состояние ISLOM AI HUB",
-      {},
-      async () => ({
-        content: [
-          {
-            type: "text",
-            text: "ISLOM AI HUB работает!",
-          },
-        ],
-      })
-    );
-  }
+  server.registerTool(
+    "islom_hub_status",
+    {
+      description: "Проверить состояние ISLOM AI HUB",
+      inputSchema: {}
+    },
+    async () => ({
+      content: [
+        {
+          type: "text",
+          text: "ISLOM AI HUB работает!"
+        }
+      ]
+    })
+  );
+
+  return server;
 }
 
+const handler = createMcpHandler(createServer);
+
 export default {
-  fetch: MyMCP.serve("/mcp"),
+  fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    return handler(request, env, ctx);
+  }
 };
