@@ -60,6 +60,7 @@ function createServer() {
                 }
               ]
             })
+            signal: AbortSignal.timeout(25000)
           }
         );
 
