@@ -1,4 +1,3 @@
-
 import { McpServer } from "@modelcontextprotocol/server";
 import { createMcpHandler } from "agents/mcp/server";
 import { env } from "cloudflare:workers";
@@ -59,7 +58,7 @@ function createServer() {
                   parts: [{ text: prompt }]
                 }
               ]
-            })
+            }),
             signal: AbortSignal.timeout(25000)
           }
         );
